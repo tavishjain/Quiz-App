@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteOpenHelper;
  * Notifications, Create Quiz, Forums, Cache etc.
  *
  * TODO change the description after implementation
+
  */
 public class DBHelper extends SQLiteOpenHelper {
 

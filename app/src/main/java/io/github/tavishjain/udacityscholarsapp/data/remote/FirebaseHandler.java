@@ -6,6 +6,7 @@ import io.github.tavishjain.udacityscholarsapp.data.models.Comment;
 import io.github.tavishjain.udacityscholarsapp.data.models.NotificationPrefs;
 import io.github.tavishjain.udacityscholarsapp.data.models.Quiz;
 import io.github.tavishjain.udacityscholarsapp.data.models.QuizAttempted;
+import io.github.tavishjain.udacityscholarsapp.data.models.Resource;
 import io.github.tavishjain.udacityscholarsapp.data.models.User;
 
 import java.util.List;
@@ -21,6 +22,7 @@ public interface FirebaseHandler {
     String REF_USERS_NODE = "users";
     String REF_QUIZZES_NODE = "quizzes";
     String REF_DISCUSSION_NODE = "discussions";
+    String REF_RESOURCES_NODE = "resources";
 
     /**
      * Fetches quizzes based on parameters passed
@@ -45,9 +47,13 @@ public interface FirebaseHandler {
 
     void fetchUserInfo(String userIdentifier, Callback<User> callback);
 
+    void fetchUserScore(String quizId, Callback<Integer> callback);
+
     void setUserInfo(User currentUser, Callback<Void> callback);
 
     void postComment(String discussionId, String quizId, Comment comment, Callback<Void> callback);
+
+    void getComments(String discussionId, String quizId, Callback<List<Comment>> callback);
 
     void updateMyAttemptedQuizzes(QuizAttempted quizAttempt, Callback<Void> callback);
 
@@ -62,6 +68,8 @@ public interface FirebaseHandler {
     void updateMyFCMToken(String fcmToken);
 
     void updateMyStatus(String newStatus, Callback<Void> callback);
+
+    void fetchResources(int startFrom, int limit, Callback<List<Resource>> callback);
 
     void destroy();
 

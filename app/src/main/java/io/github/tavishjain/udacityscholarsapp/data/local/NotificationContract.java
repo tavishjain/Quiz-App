@@ -2,7 +2,7 @@ package io.github.tavishjain.udacityscholarsapp.data.local;
 
 import android.provider.BaseColumns;
 
-class NotificationContract {
+public class NotificationContract {
 
     private NotificationContract() {
         // To prevent accidental instantiation

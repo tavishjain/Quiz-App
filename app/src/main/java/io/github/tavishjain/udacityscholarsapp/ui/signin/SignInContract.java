@@ -21,8 +21,6 @@ public interface SignInContract {
 
         void startSignIn();
 
-        void navigateToHome();
-
         void navigateToProfile();
     }
 

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".ui.discussion.QuizDiscussionActivity"
+    tools:context="io.github.tavishjain.udacityscholarsapp.ui.discussion.QuizDiscussionActivity"
     tools:showIn="@layout/activity_quiz_discussion">
 
 
@@ -29,11 +29,14 @@
         android:layout_marginEnd="@dimen/margin_medium"
         android:layout_marginStart="@dimen/margin_medium"
         android:background="@drawable/shape_whit_radius_bg"
+        android:inputType="text"
         android:maxLines="@integer/max_line_quiz_discussion_chat_box"
         android:paddingBottom="@dimen/chat_box_padding"
         android:paddingEnd="@dimen/chat_box_padding_end"
         android:paddingStart="@dimen/chat_box_padding"
         android:paddingTop="@dimen/chat_box_padding"
+        android:textSize="@dimen/text_small"
+        android:hint="@string/type_comment_hint"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -44,6 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="@dimen/margin_medium"
         android:background="?android:selectableItemBackground"
+        android:contentDescription="@string/app_name"
         android:padding="@dimen/quiz_discussion_send_padding"
         android:scaleType="fitCenter"
         android:src="@drawable/ic_send_color_bg"

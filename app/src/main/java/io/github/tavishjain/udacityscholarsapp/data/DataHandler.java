@@ -2,9 +2,11 @@ package io.github.tavishjain.udacityscholarsapp.data;
 
 import android.graphics.Bitmap;
 
+import io.github.tavishjain.udacityscholarsapp.data.models.Comment;
 import io.github.tavishjain.udacityscholarsapp.data.models.Notification;
 import io.github.tavishjain.udacityscholarsapp.data.models.Quiz;
 import io.github.tavishjain.udacityscholarsapp.data.models.QuizAttempted;
+import io.github.tavishjain.udacityscholarsapp.data.models.Resource;
 
 import java.util.List;
 
@@ -104,6 +106,8 @@ public interface DataHandler {
      * @param callback     callback for status of operation
      */
     void postComment(String discussionId, String quizId, String comment, Callback<Void> callback);
+
+    void fetchComments(String discussionId, String quizId, Callback<List<Comment>> callback);
 
     /**
      * Updates user's attempted quizzes in remote database
@@ -218,6 +222,11 @@ public interface DataHandler {
 
     List<Notification> searchNotifications(String query, int startFrom, int limit);
 
+    void fetchResources(int startFrom, int limit, Callback<List<Resource>> callback);
+
+    boolean isLoggedIn();
+
+    void destroy();
     /**
      * Generic callback interface for passing response to caller.
      * <p>

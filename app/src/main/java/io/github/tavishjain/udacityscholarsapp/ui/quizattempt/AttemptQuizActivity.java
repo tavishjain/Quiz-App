@@ -1,5 +1,6 @@
 package io.github.tavishjain.udacityscholarsapp.ui.quizattempt;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -11,6 +12,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.FrameLayout;
@@ -98,7 +100,6 @@ public class AttemptQuizActivity extends AppCompatActivity implements AttemptQui
     @Override
     protected void onResume() {
         super.onResume();
-        mPresenter.start(getIntent().getExtras());
     }
 
     @Override
@@ -125,7 +126,7 @@ public class AttemptQuizActivity extends AppCompatActivity implements AttemptQui
 
     @Override
     public void showSubmitButton() {
-        mImgNextQuestion.setImageResource(R.drawable.ic_check_circle_24dp);
+        mImgNextQuestion.setImageResource(R.drawable.ic_submit_btn);
     }
 
     @Override
@@ -136,6 +137,7 @@ public class AttemptQuizActivity extends AppCompatActivity implements AttemptQui
     @Override
     public void loadQuestion(Question question) {
         this.mCurrentQuestion = question;
+        hideKeyboard();
         populateQuestionDetails(mCurrentQuestion, null);
     }
 
@@ -197,9 +199,7 @@ public class AttemptQuizActivity extends AppCompatActivity implements AttemptQui
                     mPresenter.onSubmitClicked();
                     mIsEvaluated = true;
                 })
-                .setNegativeButton(R.string.user_confirmation_cancel, (dialog, which) -> {
-                    dialog.dismiss();
-                })
+                .setNegativeButton(R.string.user_confirmation_cancel, (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();
     }
@@ -382,10 +382,22 @@ public class AttemptQuizActivity extends AppCompatActivity implements AttemptQui
                     dialog.dismiss();
                     dismissView();
                 })
-                .setNegativeButton(R.string.user_confirmation_cancel, (dialog, which) -> {
-                    dialog.dismiss();
-                })
+                .setNegativeButton(R.string.user_confirmation_cancel, (dialog, which) -> dialog.dismiss())
                 .create()
                 .show();
+    }
+
+    //method to hide input keyboard on next/previous question button click
+    private void hideKeyboard() {
+        // Check if no view has focus:
+        View view = this.getCurrentFocus();
+        try {
+            if (view != null) {
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
+            }
+        } catch (NullPointerException npe) {
+            npe.printStackTrace();
+        }
     }
 }

@@ -4,12 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.Toast;
+
+import com.airbnb.lottie.LottieAnimationView;
 
 import io.github.tavishjain.udacityscholarsapp.R;
 import io.github.tavishjain.udacityscholarsapp.ui.PresenterInjector;
-import io.github.tavishjain.udacityscholarsapp.ui.home.HomeActivity;
 import io.github.tavishjain.udacityscholarsapp.ui.profile.UserProfileActivity;
 
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -35,7 +35,7 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
 
     private Bundle extras;
 
-    private ProgressBar mProgressBar;
+    private LottieAnimationView mProgressBar;
 
     @Override
     protected void onStart() {
@@ -44,7 +44,7 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
         FirebaseUser currentUser = mAuth.getCurrentUser();
         if (currentUser != null) {
             // User has already signed in, navigate to home
-            navigateToHome();
+            navigateToProfile();
         }
     }
 
@@ -105,20 +105,13 @@ public class SignInActivity extends AppCompatActivity implements SignInContract.
     }
 
     @Override
-    public void navigateToHome() {
-        Intent homeIntent = new Intent(this, HomeActivity.class);
-        if (extras != null) {
-            homeIntent.putExtras(extras);
-        }
-        startActivity(homeIntent);
-        this.finish();
-    }
-
-    @Override
     public void navigateToProfile() {
-        Intent signInIntent = new Intent(this, UserProfileActivity.class);
-        startActivity(signInIntent);
-        this.finish();
+        Intent profileIntent = new Intent(this, UserProfileActivity.class);
+        if (extras != null) {
+            profileIntent.putExtras(extras);
+        }
+        startActivity(profileIntent);
+        finish();
     }
 
     @Override

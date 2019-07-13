@@ -9,6 +9,7 @@ import io.github.tavishjain.udacityscholarsapp.data.models.Comment;
 import io.github.tavishjain.udacityscholarsapp.data.models.Notification;
 import io.github.tavishjain.udacityscholarsapp.data.models.Quiz;
 import io.github.tavishjain.udacityscholarsapp.data.models.QuizAttempted;
+import io.github.tavishjain.udacityscholarsapp.data.models.Resource;
 import io.github.tavishjain.udacityscholarsapp.data.models.User;
 import io.github.tavishjain.udacityscholarsapp.data.remote.FirebaseHandler;
 import io.github.tavishjain.udacityscholarsapp.data.remote.FirebaseProvider;
@@ -65,10 +66,6 @@ class AppDataHandler implements DataHandler {
                         if (result.getAttemptedList() != null) {
                             attemptedQuizzes = result.getAttemptedList().values();
                         }
-                        Collection<String> userBookmarks = new HashSet<>();
-                        if (result.getBookmarks() != null) {
-                            userBookmarks = result.getBookmarks().keySet();
-                        }
 
                         // Mark attempted quizzes
                         for (Quiz singleQuiz : quizzes) {
@@ -78,11 +75,13 @@ class AppDataHandler implements DataHandler {
                                     break;
                                 }
                             }
-                            // set user bookmarks
-                            singleQuiz.setBookmarked(userBookmarks.contains(singleQuiz.getKey()));
+                            if (result.getBookmarks() != null && result.getBookmarks().containsKey(singleQuiz.getKey())) {
+                                singleQuiz.setBookmarked(result.getBookmarks().get(singleQuiz.getKey()));
+                            }
                         }
 
                         callback.onResponse(quizzes);
+                        mFirebaseHandler.destroy();
                     }
 
 
@@ -97,7 +96,37 @@ class AppDataHandler implements DataHandler {
 
     @Override
     public void fetchQuizById(String quizId, Callback<Quiz> callback) {
-        mFirebaseHandler.fetchQuizById(quizId, new FirebaseCallback<>(callback));
+        mFirebaseHandler.fetchQuizById(quizId, new FirebaseCallback<Quiz>(callback) {
+
+            @Override
+            public void onReponse(Quiz fetchedQuiz) {
+
+                mFirebaseHandler.fetchUserScore(quizId, new FirebaseHandler.Callback<Integer>() {
+                    @Override
+                    public void onReponse(Integer result) {
+                        if (result != null && result >= 0) {
+                            fetchedQuiz.setAttempted(true);
+                            // If scholar has already attempted the quiz setting the score in
+                            // Rated-by field, is it not used anyway
+                            fetchedQuiz.setRatedBy(result);
+                        }
+                        callback.onResponse(fetchedQuiz);
+                        mFirebaseHandler.destroy();
+                    }
+
+                    @Override
+                    public void onError() {
+                        callback.onResponse(fetchedQuiz);
+                        mFirebaseHandler.destroy();
+                    }
+                });
+            }
+
+            @Override
+            public void onError() {
+                callback.onError();
+            }
+        });
     }
 
     @Override
@@ -145,6 +174,11 @@ class AppDataHandler implements DataHandler {
         comment.setCommentedOn(System.currentTimeMillis() / 1000);
         comment.setImage(mPreferences.getUserPic());
         mFirebaseHandler.postComment(discussionId, quizId, comment, new FirebaseCallback<>(callback));
+    }
+
+    @Override
+    public void fetchComments(String discussionId, String quizId, Callback<List<Comment>> callback) {
+        mFirebaseHandler.getComments(discussionId, quizId, new FirebaseCallback<>(callback));
     }
 
     @Override
@@ -249,6 +283,23 @@ class AppDataHandler implements DataHandler {
     @Override
     public List<Notification> searchNotifications(String query, int startFrom, int limit) {
         return mDBHandler.searchNotifications(query, startFrom, limit);
+    }
+
+    @Override
+    public void fetchResources(int startFrom, int limit, Callback<List<Resource>> callback) {
+        mFirebaseHandler.fetchResources(startFrom, limit, new FirebaseCallback<>(callback));
+    }
+
+    @Override
+    public boolean isLoggedIn() {
+        return (mPreferences.getSlackHandle() != null);
+    }
+
+    @Override
+    public void destroy() {
+        mPreferences.destroy();
+        // mDBHandler.destroy(); // this is yet to be implemented
+        mFirebaseHandler.destroy();
     }
 
     /**

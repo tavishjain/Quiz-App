@@ -12,6 +12,7 @@ import java.util.List;
  */
 public interface QuizDiscussionContract {
 
+    String KEY_QUIZ_ID = "quiz_id";
 
     /**
      * Discussion View
@@ -23,6 +24,7 @@ public interface QuizDiscussionContract {
 
         void loadComment(Comment comment);
 
+        void showInvalidInput();
     }
 
     /**

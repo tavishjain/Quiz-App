@@ -4,6 +4,7 @@ package io.github.tavishjain.udacityscholarsapp.data.remote;
  *
  * Provides an implementation of {@link FirebaseHandler}. This provider can decide whether to
  * provide real or mock implementation
+ * @Author kaushald
  */
 public class FirebaseProvider {
 

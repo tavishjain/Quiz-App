@@ -1,12 +1,14 @@
 package io.github.tavishjain.udacityscholarsapp.services;
 
+import android.content.SharedPreferences;
+import android.support.annotation.NonNull;
+import android.support.v7.preference.PreferenceManager;
+
+import com.tavishjain.udacityscholarsapp.R;
+import io.github.tavishjain.udacityscholarsapp.data.DataHandlerProvider;
 import io.github.tavishjain.udacityscholarsapp.data.models.Notification;
 import io.github.tavishjain.udacityscholarsapp.utils.AppConstants;
 import io.github.tavishjain.udacityscholarsapp.utils.NotificationUtils;
-
-import android.support.annotation.NonNull;
-
-import io.github.tavishjain.udacityscholarsapp.data.DataHandlerProvider;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -23,16 +25,18 @@ public class FBMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
 
-        // check if message contains a data payload
-        if (remoteMessage != null && remoteMessage.getData().size() > 0) {
-            Notification notification = createNotificationObject(remoteMessage);
-            storeNotification(notification);
-            raiseSystemNotification(notification);
-        }
+        if (remoteMessage != null) {
+            // check if message contains a data payload
+            if (remoteMessage.getData() != null && remoteMessage.getData().size() > 0) {
+                Notification notification = createNotificationObject(remoteMessage);
+                storeNotification(notification);
+                raiseSystemNotification(notification);
+            }
 
-        // Check if message contains a notification payload
-        if (remoteMessage != null && remoteMessage.getNotification() != null) {
-            // TODO: Decide if any action is needed here
+            // Check if message contains a notification payload
+            if (remoteMessage.getNotification() != null) {
+                // TODO: Decide if any action is needed here
+            }
         }
     }
 
@@ -75,7 +79,10 @@ public class FBMessagingService extends FirebaseMessagingService {
      * @param notification - {@link Notification} object generated from received data payload
      */
     private void raiseSystemNotification(@NonNull Notification notification) {
-
-        NotificationUtils.createNotification(this, notification, notification.getType());
+        // Before raising notification check if user has disabled notifications
+        SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(this);
+        if (sharedPrefs.getBoolean(getString(R.string.get_notification_key), true)) {
+            NotificationUtils.createNotification(this, notification, notification.getType());
+        }
     }
 }

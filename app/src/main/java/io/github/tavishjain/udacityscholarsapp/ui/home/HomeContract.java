@@ -18,6 +18,9 @@ public interface HomeContract {
     int NAVIGATION_SETTINGS = 4;
     int NAVIGATION_ABOUT = 5;
     int NAVIGATION_EDIT_PROFILE = 6;
+    String BOOKMARKED_QUIZZES = "bookmarked-quizzes";
+    String ATTEMPTED_QUIZZES = "attempted-quizzes";
+    String UNATTEMPTED_QUIZZES = "un-attempted-quizzes";
 
     /**
      * Home View
@@ -26,6 +29,12 @@ public interface HomeContract {
         void loadQuizzes(List<Quiz> quizzes);
 
         void onQuizLoadError();
+
+        void loadUserImageInDrawer(String imageUrl);
+
+        void loadUserNameInDrawer(String username);
+
+        void loadSlackHandleInDrawer(String slackHandle);
 
         void navigateToQuizDesc(Quiz quiz);
 
@@ -42,6 +51,12 @@ public interface HomeContract {
         void navigateToAboutScreen();
 
         void navigateToEditProfile();
+
+        void navigateToQuizDiscussion(String quizId);
+
+        void navigateToQuizDetails(String quizId);
+
+        void handleEmptyView(String selectedFilter);
     }
 
     /**

@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">UdacityScholarsApp</string>
+    <string name="app_name">ScholarsApp</string>
+    <string name="quiz_app">Quiz App</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -7,8 +8,11 @@
     <string name="deadline">Deadline:</string>
 
     <!--Sign In page text-->
-    <string name="sigin_text_almost_there">Almost there, Sign In to continue</string>
+    <string name="sigin_text_almost_there">For Scholars, By Scholars</string>
 
+
+    <!-- Error message when there is no internet connectivity [CHAR LIMIT=NONE] -->
+    <string name="no_internet_connection">No internet connection.</string>
 
     <string name="details_page_email">example@gmail.com</string>
     <string name="details_page_name">Name</string>
@@ -17,12 +21,9 @@
     <string name="details_page_change_photo">Change Profile Photo</string>
     <string name="details_page_select_track">Select Your Track</string>
     <string name="details_page_setup_profile">Setup Profile</string>
-    <string-array name="datails_page_track_spinner">
+    <string-array name="details_page_track_spinner">
         <item>Select Your Track</item>
-        <item>Android Basic</item>
-        <item>Android Intermediate</item>
-        <item>Web Specialist</item>
-        <item>Mobile Specialist</item>
+        <item>Android Developer</item>
     </string-array>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -63,7 +64,7 @@
     <string name="unable_to_login">Unable to login with this account</string>
     <string name="text_proceed">Proceed >> </string>
     <string name="error_uploading_picture">Error while uploading profile picture. Please try again later.</string>
-    <string name="profile_saved_successfully">Profile saved successfully</string>
+    <string name="profile_saved_successfully">Logged in successfully</string>
 
 
     <!-- NotificationActivity Helper Strings  -->
@@ -112,7 +113,7 @@
     <string name="txt_status_pending">Not started</string>
     <string name="txt_deadline_none">NONE</string>
 
-    //Navigation Drawer Menu Items
+    <!--Navigation Drawer Menu Items-->
     <string name="scoreboard">Scoreboard</string>
     <string name="quizlist">QuizList</string>
     <string name="createQuiz">Create Quiz</string>
@@ -125,13 +126,35 @@
     <string name="name">Vishal Sehgal</string>
     <string name="emailid">sehgalvishal31@gmail.com</string>
 
-    //Unread Notification
+    <!--Unread Notification-->
     <string name="newnotification">15</string>
     <string name="number">10</string>
-    <string name="string_settings">Settings</string>
+
+    <!--Settings Fragment Strings-->
+
+    <string name="sign_out_title">Are you sure?</string>
+    <string name="sign_out_ok">Yes</string>
+    <string name="sign_out_cancel">Cancel</string>
+    <string name="sign_out_message">This will sign you out from this device</string>
+
+    <!-- Keys -->
+    <string name="get_notification_key">get_notification</string>
+    <string name="theme_list_key">theme_list</string>
+    <string name="sign_out_key">sign_out</string>
+
+    <string name="theme_option_dark">Dark</string>
+    <string name="theme_option_light">Light</string>
+
+    <string name="get_notifications_title">Get All Notifications</string>
+    <string name="get_notification_summary">Enable to receive notifications</string>
+    <string name="theme_list_label">Theme</string>
+    <string name="sign_out">Sign out</string>
+
 
     <!--Quiz Discussion Screen-->
     <string name="title_activity_quiz_discussion">Help/ Discussion</string>
+
+    <string name="refreshed">Refreshed!</string>
 
     <string name="subjective_hint">Enter your answer here</string>
     <string name="invalid_input_provided">Invalid parameter provided while launching quiz.</string>
@@ -152,11 +175,29 @@
     <string name="label_released">Released on :</string>
     <string name="label_deadline">DEADLINE :</string>
     <string name="dummy_deadline_date">14 May 2018</string>
-    <string name="dummy_about">This Quiz is all about intents. Intents are used to signal to the Android system that a certain event has occured. Intents often describe the action which should be performed and provide data upon which such an action should be done.</string>
+    <string name="dummy_about">This Quiz is all about intents. Intents are used to signal to the Android system that a certain event has occurred. Intents often describe the action which should be performed and provide data upon which such an action should be done.</string>
     <string name="your_score">Your Score</string>
     <string name="quiz_status">Unattempted</string>
 
     <!-- Home Screen Back Button -->
     <string name="home_back_btn_msg">Press back again to exit.</string>
+    <string name="no_items_to_display">No notifications to display</string>
+
+    <!--Details Screen Errors-->
+    <string name="user_name_empty_error">Enter your name</string>
+    <string name="slack_handle_empty_error">Enter a Valid Slack Handle</string>
+    <string name="slack_handle_format_missing">Start with \@</string>
+    <string name="select_your_track">Select Your Track</string>
+    <string name="user_image_empty">Select a profile photo</string>
+    <string name="empty_quiz_list">No quiz for the selected Filter</string>
+
+    <!--Handle Filter Helper Strings-->
+    <string name="no_attempted_quizzes">No Attempts Yet!</string>
+    <string name="no_bookmarked_quizzes">No Bookmarks!</string>
+    <string name="no_un_attempted_quizzes">All Caught Up!</string>
+
+    <string name="type_comment_hint">Type message here</string>
+    <string name="msg_under_construction">Feature is under construction</string>
+
 
 </resources>
