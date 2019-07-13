@@ -1,8 +1,5 @@
 # QUIZ APP
 
-Hello,
-
-Thank you for showing interest in the project. Let's work together and make it big.
 
 ## Purpose of the Project -
 
@@ -11,18 +8,6 @@ Thank you for showing interest in the project. Let's work together and make it b
 - Access to the quiz for the revision even after the 3 months challenge. 
 - Easy to manage quizzes and keeping the track of all attempted quizzes.
 - Android Resources: Useful resources related to Android based on a search keyword
-
-### Mods:
-  * Aditi Soni (@aditi.soni) 
-  * Vishal Sehgal (@sehgalvishal31)
-  * Parth Joshi (@Parth J)
-
-
-### Co-Mod:
-  * Kaushal Dhruw(@Kaushal)
-  * Vansh Badkul(@Vansh)
-  * Sagarsrao(@Sagarsrao)
-  * Thayumaanavan(@Thayumaanavan C R)
    
 #### Please have a look at this [video](https://drive.google.com/open?id=1vSSUh3LSNw9PfjyXhiXlF_j-zIO8SjYj) for better understanding.
 
